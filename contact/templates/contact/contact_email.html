@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<!--
+Creates a custom template that gets sent by the contact form.
+Applies some simple formatting to clean up the raw user input
+from the form.
+-->
+<body>
+<a>To whom it may concern,</a><br>
+<br>
+<a>{{ message }}</a><br>
+<br>
+<a>{{ name }},</a><br>
+<a href="mailto:{{ email }}">{{ email }}</a>
+</body>
+</html>
