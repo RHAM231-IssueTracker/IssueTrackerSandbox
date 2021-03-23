@@ -1,0 +1,103 @@
+{% extends "base_pages/base.html" %}
+{% load static %}
+{% load myfilters %}
+
+{% block content %}
+
+<div class="container py-5 px-5">
+  <!--
+  Used a child/parent loop combination with an if statement checking
+  forloop counters to mimic zipping two lists together. This allows
+  iteration through two different database query lists OF EQUAL LENGTH
+  simultaneously. Used this feature to avoid modifying the contact
+  button model so as to reuse it across the website.
+  -->
+  {% for button in page_buttons %}{% for item in contact_text %}
+  {% if forloop.counter == forloop.parentloop.counter %}
+  {% if forloop.first is True %}
+  <div class="row text-center d-flex justify-content-center">
+    <h3>{{ contact_headers.0.header }}</h3>
+  </div>
+  {% endif %}
+  <div class="row d-flex justify-content-center">
+    <p class="txt-no-margin">{{ item.header }}</p>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <a href="{{ button.href }}">
+      <input type="button" name=""
+             id="{{ button.icon_id }}">
+      <label class="box-contact"
+             for="{{ button.icon_id }}">
+        <label class="{{ button.button_label_class }}"
+               for="{{ button.icon_id }}">
+          <i class="{{ button.icon_class }}"></i>
+        </label>
+        <span id="{{ button.icon_id }}-page-txt">{{ button.text|safe }}</span>
+      </label>
+    </a>
+  </div>
+  {% endif %}
+  {% endfor %}{% endfor %}
+
+  <!-- Let's generate contact header and email before the form -->
+  <div class="col 12 contact-color">
+    <div class="row text-center d-flex justify-content-center mr-2 ml-2 pt-4">
+      <p>{{ contact_headers.1.header }}
+        <a id="contact-text"
+           href="{{ email.href }}">{{ contact_buttons.2.text }}
+        </a>{{ contact_headers.2.header }}
+      </p>
+      <p>
+        {{ contact_headers.5.header }}
+      </p>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-sm-6 col-md-8 col-lg-6 border-custom py-2"></div>
+    </div>
+
+    <!-- Let's generate a contact form from forms.py -->
+    <div class="row d-flex justify-content-center">
+      <div class="col-12">
+        <form action="/contact/" method="post">
+          {% csrf_token %}
+          <!--
+          Generates the contact form fields from forms.py.
+          If the field is a checkbox, it displays a label.
+          -->
+          {% for field in form %}
+          <div class="form-row d-flex justify-content-center mr-2 ml-2">
+            <div class="col-sm-6 col-md-8 col-lg-6 py-2">
+              <div class="fieldWrapper">
+                {{ field.errors }}
+                {% if field.field.widget|is_checkbox %}
+                <label id="checkbox-label-btn"
+                       for="id_cc_myself">{{ field }}
+                  <i class="fa fa-check"></i>
+                </label>
+                <span id="checkbox-text">{{ field.label }}</span>
+                {% else %}
+                {{ field }}
+                {% endif %}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- Generates the form submit button -->
+          <div class="row d-flex justify-content-center">
+            <div class="col-sm-6 col-md-8 col-lg-6 border-custom py-2 mt-5"></div>
+          </div>
+          <div class="row d-flex justify-content-center py-4">
+            <input type="submit" value="{{ submit_button.text }}" class="frm-btn">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
