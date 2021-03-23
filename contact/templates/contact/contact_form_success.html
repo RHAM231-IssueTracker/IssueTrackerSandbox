@@ -1,0 +1,20 @@
+{% extends "base_pages/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5 px-5">
+  <!-- Displays the contact success page with some text and a home redirect button -->
+  <div class="row d-flex justify-content-center py-5">
+    <div class="stext">
+      <span class="contrast align-text-middle">{{ contact_headers.3.header }}</span>
+    </div>
+  </div>
+
+  <div class="row h-35 d-flex justify-content-center">
+    <a href="{% url home_button.link %}" class="link-btn">{{ home_button.text }}</a>
+  </div>
+
+</div>
+
+{% endblock content %}
