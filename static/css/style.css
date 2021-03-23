@@ -1,0 +1,467 @@
+/**************************************************************************/
+/*TABLE OF CONTENTS*/
+/**************************************************************************/
+
+/*
+WEBSITE BODY, FONT, ANCHORS
+WEBSITE COLORS
+  COLORS: BODY, FONT, WRAPPER, BORDER
+  COLORS: PAGE SPECIFIC COLORS
+  COLORS: SCROLLBAR
+  COLORS: HEADER
+  COLORS: PARALLAX
+  COLORS: CONTACT & REGISTER PAGES
+  COLORS: LINK BUTTONS & FORM SUBMIT BUTTON
+  COLORS: FOOTER
+CUSTOM SCROLLBAR
+HEADER
+  NAVBAR CUSTOM BREAKPOINT
+  LOGO
+  WELCOME TEXT
+  NAVBAR ANIMATED TOGGLER
+  NAVBAR - DESKTOP
+  NAVBAR - MOBILE
+PARALLAX CONTENT
+IMAGES
+CONTACT & REGISTER PAGES
+BUTTONS
+  SOCIAL MEDIA BUTTONS
+  CONTACT BUTTONS, FOOTER
+  CONTACT BUTTONS, PAGES
+  BUTTON HOVER EFFECTS
+  LINK BUTTONS & FORM SUBMIT BUTTON
+FOOTER
+*/
+
+/**************************************************************************/
+/*WEBSITE BODY, FONT, ANCHORS*/
+/**************************************************************************/
+
+@font-face {
+    font-family: 'spinnakerregular';
+    src: url('spinnaker-regular-webfont.woff2') format('woff2'),
+         url('spinnaker-regular-webfont.woff') format('woff'),
+         url('spinnaker-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC,
+                   U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+                   U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+                   U+FEFF, U+FFFD;
+}
+
+/*Sets the default font style for the website*/
+body, html {
+  height: 100%;
+  margin: 0;
+  font-size: 18px;
+  font-family: 'spinnakerregular', sans-serif;
+  font-weight: 400;
+  line-height: 1.8em;
+}
+
+/*Centers list item text from the FAQS and Register pages for mobile*/
+@media(max-width:576px){
+  .symptom-txt {
+    text-align: center!important;
+  }
+}
+
+/*Gets rid of the annoying horizontal scroll bar on the home page*/
+.container-no-margin {
+  overflow-x: hidden;
+}
+
+/*Ensures that hash links to page headers stay out from under the sticky
+navbar by offsetting a hidden anchor tag.*/
+a.anchor {
+  display: block;
+  position: relative;
+  top: -160px;
+  visibility: hidden;
+}
+
+/**************************************************************************/
+/*SCROLLBAR*/
+/**************************************************************************/
+
+/*Lets customize the scrollbar with CSS and js. js is located in the
+project's static directory*/
+/*Hides the default internet scrollbar*/
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/*Creates a path for the custom scrollbar. Set z-index to put it on top of
+everything.*/
+#scrollPath {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(255,255,255,0.05);
+  z-index: 10;
+}
+
+/*Creates a custom colored scrollbar. Set z-index to put it on top of
+everything.*/
+#progressbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  animation: animate 5s linear infinite;
+  z-index: 10;
+}
+
+/*Animates the scrollbar to change colors if desired*/
+/*@keyframes animate {
+  0%,100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(360deg);
+  }
+}*/
+
+/*Let's add the scrolling progress effect. js in static directory will
+set the dynamic percentage of the initial and final states below, creating
+a scrolling effect.*/
+#progressbar:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(10px);
+}
+
+#progressbar:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(30px);
+}
+
+/**************************************************************************/
+/*HEADER*/
+/**************************************************************************/
+
+/**************************************************************************/
+/*----NAVBAR CUSTOM BREAKPOINT----*/
+/**************************************************************************/
+
+/*Let's customize the navbar breakpoint to accomodate all our links. We
+use navbar-expand-custom in base.html and then set the breakpoint to a
+value of our choosing. Then we re-apply some CSS to the custom class to
+keep from breaking the navbar.*/
+@media (min-width: 1600px){
+    .navbar-expand-custom {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+    .navbar-expand-custom .navbar-nav {
+        flex-direction: row;
+    }
+    .navbar-expand-custom .navbar-nav .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+    }
+    .navbar-expand-custom .navbar-collapse {
+        display: flex!important;
+    }
+    .navbar-expand-custom .navbar-toggler {
+        display: none;
+    }
+    .navbar-expand-custom .navbar-nav .dropdown-menu {
+      position: absolute;
+    }
+}
+
+/**************************************************************************/
+/*----LOGO----*/
+/**************************************************************************/
+
+/*Styles and positions the logo. Width set to equal curve spacer to avoid
+spacing issue with the navbar.*/
+.navbar-brand{
+  height: 120px;
+  width: 320px; /*This must equal #curve-spacer width below*/
+  padding: 0px 0px;
+  margin: 0px 0px;
+  line-height: 120px;
+  border-radius: 0px 0px 130px 0px;
+  z-index: 10;
+}
+
+/*Creates the curve edge near the navbar-brand above*/
+#curve-spacer {
+  border-radius: 0px 0px 120px 0px;
+  width: 320px; /*This must equal .navbar-brand width above*/
+  height: 120px;
+}
+
+/*Creates a box for the logo to sit in. Logo controlled by background-image
+property. Used this property to change image size for resizing navbar.*/
+#logo-box {
+  height: 120px;
+  margin: 0px 0px 0px 10px;
+  position: relative;
+  background-image:url(HML-black.png);
+  background-size: contain;
+  background-repeat:no-repeat;
+}
+
+/**************************************************************************/
+/*----WELCOME TEXT----*/
+/**************************************************************************/
+
+/*Styles the welcome section in the header on the home page*/
+#welcome {
+  height: 80px;
+  position: relative;
+  z-index: 8;
+}
+
+/*Styles welcome text inside welcome section*/
+.welcome-text {
+  width:100%;
+  text-align:center;
+  font-size:28px;
+  font-weight: bold;
+  letter-spacing:8px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/**************************************************************************/
+/*----NAVBAR ANIMATED TOGGLER----*/
+/**************************************************************************/
+
+/*Controls sizing and spacing for the container for the toggler icon
+below. Child element is .navbar-toggler-icon.*/
+.navbar-toggler{
+  margin: 0px 10px;
+  padding: 0px 0px;
+  position: relative;
+  align-items: center;
+  width: 80px;
+  height: 120px;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+/*Creates and styles the center bar on the hamburger toggler icon*/
+.navbar-toggler-icon{
+  width: 50px;
+  height: 6px;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
+}
+
+/*Creates the top and bottom toggler bars*/
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: '';
+  position: absolute;
+  margin: 0px 0 0 -25px;
+  width: 50px;
+  height: 6px;
+  border-radius: 5px;
+  transition: all .5s ease-in-out;
+}
+
+/*Positions the top and bottom toggler bars*/
+.navbar-toggler-icon::before {
+  transform: translateY(-16px);
+}
+.navbar-toggler-icon::after {
+  transform: translateY(16px);
+}
+
+/*Set's final orientation for the toggler bars after animation. Animation
+activated by hamburger.js in static/js directory*/
+.navbar-toggler.open .navbar-toggler-icon {
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
+}
+.navbar-toggler.open .navbar-toggler-icon::before {
+  transform: rotate(45deg) translate(35px, -35px);
+}
+.navbar-toggler.open .navbar-toggler-icon::after {
+  transform: rotate(-45deg) translate(35px, 35px);
+}
+
+/*Removes Bootstrap's default outline from the toggler*/
+.navbar-toggler:focus,.navbar-toggler:active {
+   outline: none;
+   box-shadow: none;
+}
+
+/**************************************************************************/
+/*----NAVBAR - DESKTOP----*/
+/**************************************************************************/
+
+/*Fixes spacing issue after making navbar sticky with position fixed. Set
+to equal height of navbar.*/
+.nav-container {
+  height: 120px;
+}
+
+/*Remove default Bootstrap margins and padding. Make the navbar sticky so
+it always stays visible. Set z-index to keep it on top of everything else
+except the scrollbar*/
+.navbar {
+  margin-top: 0;
+  padding: 0px;
+  position: -webkit-sticky;
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 9;
+}
+
+/*Adds margin for the dropdown menu for for the collapsed navbar*/
+.navbar-collapse{
+  padding: 0px 20px;
+}
+
+/*Forces the link text in the navbar to stay on the same line at all
+times*/
+.nav-item {
+  margin: 0px 0px 0px 0px;
+  white-space: nowrap;
+}
+
+/*Styles the navbar links. line-height used to vertically center text*/
+.nav-link {
+  line-height: 40px;
+  border-radius: 28px 28px 28px 28px;
+  text-align: center;
+  text-transform:uppercase;
+}
+
+/*Sets text style for the drop down items*/
+.dropdown-item{
+  border-radius: 18px 18px 18px 18px;
+  text-align: center;
+}
+
+/**************************************************************************/
+/*CONTACT & REGISTER PAGES*/
+/**************************************************************************/
+
+/*Adds custom styling to form fields*/
+#id_name, #id_sender, #id_subject, #id_message,
+#id_phone, #id_date {
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2), 0 5px 15px 0 rgba(0,0,0,0.19);
+}
+
+/*Removes Bootstrap's default checkbox*/
+#id_cc_myself {
+  -webkit-appearance: none;
+}
+
+/*Controls spacing for the checkbox on the forms*/
+.fieldWrapper {
+  position: relative;
+}
+
+/*Creates a custom checkbox for the forms*/
+#checkbox-label-btn {
+  height: 23px;
+  width: 22px;
+  border-radius: 15px;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  transform: translate(-50%, 50%);
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.6);
+}
+
+/*Creates and positions a check mark inside the checkbox*/
+#checkbox-label-btn input ~ i {
+  color: #FFFFFF; /*Used to hide default check mark*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*Positions text next to checkbox*/
+#checkbox-text {
+  position: absolute;
+  top: -18px;
+  left: 70px;
+  transform: translate(-50%, 50%);
+}
+
+/*Sets the hover effect for the cursor for the checkbox*/
+#checkbox-label-btn:hover {
+  cursor: pointer;
+}
+
+/*Sets height of the the form fields*/
+#id_name, #id_sender, #id_subject,
+#id_phone, #id_date {
+  height: 50px;
+}
+
+/*Styles the success text on the contact success and register success page*/
+.stext {
+  width:100%;
+  text-align:center;
+  font-size:20px;
+  letter-spacing:8px;
+  text-transform:uppercase;
+}
+
+/**************************************************************************/
+/*FOOTER*/
+/**************************************************************************/
+
+/*Sets footer size for desktop*/
+.footer {
+  height: 350px;
+  position: relative;
+  z-index: 8;
+}
+
+/*Sets footer text alignment*/
+.footer-text {
+  text-align: left;
+}
+
+/*Let's make some of the footer text a different color for contrast*/
+footer .contrast-txt {
+  text-align: left;
+  font-size: 14px;
+}
+
+/*Adjusts text alignment and footer size for smaller screens*/
+@media(max-width:991px){
+  .center-text {
+    margin: 0 auto;
+  }
+  .footer-link {
+    text-align: center;
+  }
+  .ftr-info {
+    margin: 0 auto;
+  }
+  .footer {
+    height: 850px;
+  }
+}
+
+/**************************************************************************/
+/*END*/
+/**************************************************************************/
