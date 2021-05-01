@@ -1,2 +1,2 @@
 # IssueTrackerSandbox
-This is a sandbox repository connected to GitHub-IssueTracker.
+Sandbox repository for demo purposes.
