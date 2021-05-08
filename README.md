@@ -6,6 +6,3 @@ This repository is linked to my project, [Issue Tracker](), which interfaces wit
 
 ## Background
 The code for Issue Tracker can be found on [my personal GitHub](https://github.com/RHAM231/GitHub-Issue-Backend). See Issue Tracker's [About]() page or [README](https://github.com/RHAM231/GitHub-Issue-Backend#readme) for more background about the site's functionality and purpose.
-
-#### Rex Mitchell's GitHub
-
